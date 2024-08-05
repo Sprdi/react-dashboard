@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
-import { formatDate } from "@fullcalendar/core"; // Import formatDate from @fullcalendar/core
+import { formatDate } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -21,19 +21,39 @@ const Calendar = () => {
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
 
+  const saveEventsToLocalStorage = (events) => {
+    localStorage.setItem('events', JSON.stringify(events));
+  };
+
+  const loadEventsFromLocalStorage = () => {
+    const events = localStorage.getItem('events');
+    return events ? JSON.parse(events) : [];
+  };
+
+  useEffect(() => {
+    const storedEvents = loadEventsFromLocalStorage();
+    setCurrentEvents(storedEvents);
+  }, []);
+
+  useEffect(() => {
+    saveEventsToLocalStorage(currentEvents);
+  }, [currentEvents]);
+
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
     const calendarApi = selected.view.calendar;
     calendarApi.unselect();
 
     if (title) {
-      calendarApi.addEvent({
+      const newEvent = {
         id: `${selected.dateStr}-${title}`,
         title,
         start: selected.startStr,
         end: selected.endStr,
         allDay: selected.allDay,
-      });
+      };
+      setCurrentEvents([...currentEvents, newEvent]);
+      calendarApi.addEvent(newEvent);
     }
   };
 
@@ -44,15 +64,15 @@ const Calendar = () => {
       )
     ) {
       selected.event.remove();
+      setCurrentEvents(currentEvents.filter(event => event.id !== selected.event.id));
     }
   };
 
   return (
     <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+      <Header title="Ruang Rapat" subtitle=" " />
 
       <Box display="flex" justifyContent="space-between">
-        {/* CALENDAR SIDEBAR */}
         <Box
           flex="1 1 20%"
           backgroundColor={colors.primary[400]}
@@ -87,7 +107,6 @@ const Calendar = () => {
           </List>
         </Box>
 
-        {/* CALENDAR */}
         <Box flex="1 1 100%" ml="15px">
           <FullCalendar
             height="75vh"
@@ -110,18 +129,6 @@ const Calendar = () => {
             select={handleDateClick}
             eventClick={handleEventClick}
             eventsSet={(events) => setCurrentEvents(events)}
-            // initialEvents={[
-            //   {
-            //     id: "12315",
-            //     title: "All-day event",
-            //     date: "2022-09-14",
-            //   },
-            //   {
-            //     id: "5123",
-            //     title: "Timed event",
-            //     date: "2022-09-28",
-            //   },
-            // ]}
           />
         </Box>
       </Box>
