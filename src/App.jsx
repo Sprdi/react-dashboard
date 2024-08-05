@@ -9,11 +9,16 @@ import Contacts from "./scenes/contacts";
 import Invoices from "./scenes/invoices";
 import Form from "./scenes/form";
 import { Calendar, CutiCalendar } from "./scenes/booking"; // Adjust the import path if necessary
-// import Bar from "./scenes/bar";
-// import Line from "./scenes/line";
-// import Pie from "./scenes/pie";
-// import FAQ from "./scenes/faq";
-// import Geography from "./scenes/geography";
+import Sag from "./scenes/sag";
+import Iso from "./scenes/iso";
+import Memo from "./scenes/memo";
+import BeritaAcara from "./scenes/berita_acara";
+import Project from "./scenes/project";
+import Sk from "./scenes/sk";
+import Surat from "./scenes/surat";
+import SuratMasuk from "./scenes/surat_masuk";
+import SuratKeluar from "./scenes/surat_keluar";
+
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -34,11 +39,15 @@ function App() {
                             <Route path="/form" element = {<Form />} />
                             <Route path="/booking" element = {<Calendar />} />
                             <Route path="/cuti" element={<CutiCalendar />} />
-                            {/* <Route path="/bar" element = {<Bar />} />
-                            {/* <Route path="/pie" element = {<Pie />} /> */}
-                            {/* <Route path="/line" element = {<Line />} /> */}
-                            {/* <Route path="/faq" element = {<FAQ />} /> */}
-                            {/* <Route path="/geography" element = {<Geography />} /> */}
+                            <Route path="/sag" element = {<Sag />} />
+                            <Route path="/iso" element = {<Iso />} />
+                            <Route path="/memo" element = {<Memo />} />
+                            <Route path="/surat" element = {<Surat />} />
+                            <Route path="/berita_acara" element = {<BeritaAcara />} />
+                            <Route path="/sk" element = {<Sk />} />
+                            <Route path="/project" element = {<Project />} />
+                            <Route path="/surat_masuk" element = {<SuratMasuk />} />
+                            <Route path="/surat_keluar" element = {<SuratKeluar />} />
                         </Routes>
                     </main>
                 </div>

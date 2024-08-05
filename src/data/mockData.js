@@ -1281,3 +1281,13 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+export const mockDataSag = [
+  {
+    id: 1,
+    tanggal: "Jon Snow",
+    noMemo: "00002-ITS-SAG-M-2024",
+    perihal: "Permohonan reimburse asuransi pak roy",
+    pic: "wina",
+  }
+]
