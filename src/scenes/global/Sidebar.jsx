@@ -45,7 +45,7 @@ const Sidebar = () => {
     <Box
       sx={{
         display: 'flex',
-        height: '100vh',
+        height: '100%',
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
           height: '100%',
